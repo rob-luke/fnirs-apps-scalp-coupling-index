@@ -7,5 +7,5 @@ services:
       dockerfile: Dockerfile
     image: fnirs-apps/sci
     volumes:
-      - /Volumes/MassStorage2TB/rluke/Repositories/BIDS-NIRS-Tapping/:/data
+      - /Volumes/MassStorage2TB/rluke/Repositories/BIDS-NIRS-Tapping/:/bids_dataset
     command: ["0.5"]

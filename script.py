@@ -21,7 +21,7 @@ ids = range(1, 6)
 task = "tapping"
 for id in ids:
     bids_path = BIDSPath(subject='%02d' % id, task=task,
-                         root="/data",
+                         root="/bids_dataset",
                          datatype="nirs", suffix="nirs", extension=".snirf")
     raw = read_raw_bids(bids_path, verbose=True)
     raw = mne.preprocessing.nirs.optical_density(raw)
@@ -32,4 +32,5 @@ for id in ids:
         assert raw.ch_names[idx] == chans["name"][idx]
     chans["SCI"] = sci
     chans["status"] = sci > args.threshold
-    chans.to_csv(fname_chan, sep = '\t', index=False)
+    chans.to_csv(fname_chan, sep='\t', index=False)
+
