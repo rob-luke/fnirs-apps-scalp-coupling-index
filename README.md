@@ -19,3 +19,16 @@ docker run -v /path/to/data/:/bids_dataset ghcr.io/rob-luke/fnirs-apps-scalp-cou
 |-----------|----------|---------|--------------------------------------------------------|
 | threshold | optional | NA      | If not present then the status column is not modified. |
 |           |          |         |                                                        |
+
+
+
+Acknowledgements
+----------------
+
+This package uses MNE-Python, MNE-BIDS, and MNE-NIRS under the hood. Please cite those package accordingly.
+
+MNE-Python: https://mne.tools/dev/overview/cite.html
+
+MNE-BIDS: https://github.com/mne-tools/mne-bids#citing
+
+MNE-NIRS: https://github.com/mne-tools/mne-nirs#acknowledgements
