@@ -36,6 +36,10 @@ parser.add_argument('-v', '--version', action='version',
 args = parser.parse_args()
 
 
+########################################
+# Extract parameters
+########################################
+
 if args.threshold == 1.0:
     print("No threshold was set, so the status column will not be modified")
 
@@ -64,6 +68,10 @@ else:
     print(f"No tasks specified, processing {tasks}")
 
 
+########################################
+# Main script
+########################################
+
 print(" ")
 for id in ids:
     for task in tasks:
@@ -71,15 +79,22 @@ for id in ids:
                           root="/bids_dataset",
                           datatype="nirs", suffix="nirs",
                           extension=".snirf")
-        raw = read_raw_bids(b_path, verbose=True)
-        raw = mne.preprocessing.nirs.optical_density(raw)
-        sci = mne.preprocessing.nirs.scalp_coupling_index(raw)
-        fname_chan = b_path.update(suffix='channels',
-                                   extension='.tsv').fpath
-        chans = pd.read_csv(fname_chan, sep='\t')
-        for idx in range(len(raw.ch_names)):
-            assert raw.ch_names[idx] == chans["name"][idx]
-        chans["SCI"] = sci
-        chans["status"] = sci > args.threshold
-        chans.to_csv(fname_chan, sep='\t', index=False)
+        try:
+            raw = read_raw_bids(b_path, verbose=True)
+            raw = mne.preprocessing.nirs.optical_density(raw)
+            sci = mne.preprocessing.nirs.scalp_coupling_index(raw)
+            fname_chan = b_path.update(suffix='channels',
+                                       extension='.tsv').fpath
+            chans = pd.read_csv(fname_chan, sep='\t')
+            for idx in range(len(raw.ch_names)):
+                assert raw.ch_names[idx] == chans["name"][idx]
+            chans["SCI"] = sci
+            if args.threshold < 1.0:
+                chans["status"] = sci > args.threshold
+            chans.to_csv(fname_chan, sep='\t', index=False)
+        except FileNotFoundError:
+            print(f"Unable to process {b_path.fpath}")
+        else:
+            print(f"Unknown error processing {b_path.fpath}")
+
 

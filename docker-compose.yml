@@ -8,4 +8,4 @@ services:
     image: fnirs-apps/sci
     volumes:
       - /Volumes/MassStorage2TB/rluke/Repositories/BIDS-NIRS-Tapping/:/bids_dataset
-    command: []
+    command: ["--task_label", "tapping", "--threshold", "0.7"]
