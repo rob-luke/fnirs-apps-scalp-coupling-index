@@ -8,4 +8,4 @@ services:
     image: fnirs-apps/sci
     volumes:
       - /Volumes/MassStorage2TB/rluke/Repositories/BIDS-NIRS-Tapping/:/data
-    command: ["0.6"]
+    command: ["0.5"]

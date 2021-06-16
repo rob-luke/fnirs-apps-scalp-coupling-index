@@ -18,7 +18,4 @@ COPY script.py /usr/bin/script.py
 
 RUN mkdir /data
 
-RUN mkdir /opt/app
-RUN ["chmod", "+x", "/usr/bin/prepare.sh"]
-
 ENTRYPOINT ["tini", "-g", "--", "python", "/usr/bin/script.py"]
