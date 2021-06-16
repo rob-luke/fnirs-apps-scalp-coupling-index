@@ -1,6 +1,6 @@
 # fNIRS App: Scalp Coupling Index
 
-Portable fNIRS neuroimaging pipelines that work with BIDS datasets. See the http://fnirs-apps.org
+Portable fNIRS neuroimaging pipelines that work with BIDS datasets. See http://fnirs-apps.org
 
 This app evaluates the channel quality of your data using the scalp coupling index metric.
 The extrated metric is saved as a column in the `channels.tsv` BIDS file.
