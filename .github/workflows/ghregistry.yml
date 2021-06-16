@@ -1,4 +1,4 @@
-name: gh_docker
+name: build
 
 # https://github.com/marcellodesales/pycobertura-reports-docker/blob/main/.github/workflows/main.yaml
 
