@@ -1,5 +1,7 @@
 # fNIRS App: Scalp Coupling Index
 
+[![build](https://github.com/rob-luke/fnirs-apps-scalp-coupling-index/actions/workflows/ghregistry.yml/badge.svg?branch=main)](https://github.com/rob-luke/fnirs-apps-scalp-coupling-index/actions/workflows/ghregistry.yml)
+
 Portable fNIRS neuroimaging pipelines that work with BIDS datasets. See http://fnirs-apps.org
 
 This app evaluates the channel quality of your data using the scalp coupling index metric.
@@ -15,10 +17,11 @@ docker run -v /path/to/data/:/bids_dataset ghcr.io/rob-luke/fnirs-apps-scalp-cou
 
 ## Arguments
 
-|           | Required | Default | Note                                                   |
-|-----------|----------|---------|--------------------------------------------------------|
-| threshold | optional | NA      | If not present then the status column is not modified. |
-|           |          |         |                                                        |
+|            | Required | Default | Note                                                   |
+|------------|----------|---------|--------------------------------------------------------|
+| threshold  | optional | NA      | If not present then the status column is not modified. |
+| start_time | optional | 0       | From what time should the SCI be calculated.           |
+| end_time   | optional | end     | To what time should the SCI be calculated.             |
 
 
 
