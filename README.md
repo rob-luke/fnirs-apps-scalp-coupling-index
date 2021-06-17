@@ -24,7 +24,18 @@ You can modify the behaviour of the script using the options below.
 | threshold  | optional | NA      | If not present then the status column is not modified. |
 | start_time | optional | 0       | From what time should the SCI be calculated.           |
 | end_time   | optional | end     | To what time should the SCI be calculated.             |
+| participant_label | optional | []      | Participants to process. Default is to process all. |
+| task_label.       | optional | []      | Tasks to process. Default is to process all.        |
 
+
+
+## Updating
+
+To update to the latest version run.
+
+```bash
+docker pull ghcr.io/rob-luke/fnirs-apps-scalp-coupling-index/app
+```
 
 
 Acknowledgements
