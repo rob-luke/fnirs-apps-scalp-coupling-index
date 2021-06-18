@@ -8,4 +8,4 @@ services:
     image: fnirs-apps/sci
     volumes:
       - /home/runner/example_data/BIDS-NIRS-Tapping-00-Raw-data/:/bids_dataset
-    command: ["--task_label", "tapping", "--threshold", "0.7"]
+    command: ["--task_label", "tapping", "--threshold", "0.6"]
