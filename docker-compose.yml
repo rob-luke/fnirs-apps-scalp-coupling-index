@@ -7,5 +7,5 @@ services:
       dockerfile: Dockerfile
     image: fnirs-apps/sci
     volumes:
-      - /home/runner/example_data/BIDS-NIRS-Tapping-00-Raw-data/:/bids_dataset
+      - /home/runner/example_data/BIDS-NIRS-Tapping-master/:/bids_dataset
     command: ["--task_label", "tapping", "--threshold", "0.6"]
