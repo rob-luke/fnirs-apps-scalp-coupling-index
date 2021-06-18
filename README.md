@@ -26,6 +26,13 @@ You can modify the behaviour of the script using the options below.
 | task_label        | optional | []      | Tasks to process. Default is to process all.           |
 
 
+For example, to process only participant 6 you would run
+
+
+```bash
+docker run -v /path/to/data/:/bids_dataset ghcr.io/rob-luke/fnirs-apps-scalp-coupling-index/app --participant_label 06
+```
+
 
 ## Updating
 
