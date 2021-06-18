@@ -1,4 +1,4 @@
-# fNIRS App: Scalp Coupling Index
+# fNIRS App: Scalp Coupling Index 
 
 [![build](https://github.com/rob-luke/fnirs-apps-scalp-coupling-index/actions/workflows/ghregistry.yml/badge.svg?branch=main)](https://github.com/rob-luke/fnirs-apps-scalp-coupling-index/actions/workflows/ghregistry.yml)
 
@@ -19,13 +19,11 @@ You can modify the behaviour of the script using the options below.
 
 ## Arguments
 
-|            | Required | Default | Note                                                   |
-|------------|----------|---------|--------------------------------------------------------|
-| threshold  | optional | NA      | If not present then the status column is not modified. |
-| start_time | optional | 0       | From what time should the SCI be calculated.           |
-| end_time   | optional | end     | To what time should the SCI be calculated.             |
-| participant_label | optional | []      | Participants to process. Default is to process all. |
-| task_label.       | optional | []      | Tasks to process. Default is to process all.        |
+|                   | Required | Default | Note                                                   |
+|-------------------|----------|---------|--------------------------------------------------------|
+| threshold         | optional | []      | If not present then the status column is not modified. |
+| participant_label | optional | []      | Participants to process. Default is to process all.    |
+| task_label        | optional | []      | Tasks to process. Default is to process all.           |
 
 
 
