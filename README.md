@@ -14,8 +14,8 @@ If a threshold is specified, then the status column in `channels.tsv` will also 
 docker run -v /path/to/data/:/bids_dataset ghcr.io/rob-luke/fnirs-apps-scalp-coupling-index/app
 ```
 
-By default the app will process all subject and tasks.
-You can modify the behaviour of the script using the options below.
+By default the app will process all subjects and tasks.
+You can modify this behaviour using the options below.
 
 ## Arguments
 
