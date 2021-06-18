@@ -75,6 +75,7 @@ else:
 print(" ")
 for id in ids:
     for task in tasks:
+        print(f"Processing {id}-{task}")
         b_path = BIDSPath(subject=id, task=task,
                           root="/bids_dataset",
                           datatype="nirs", suffix="nirs",
