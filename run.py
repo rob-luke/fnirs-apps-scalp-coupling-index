@@ -9,7 +9,7 @@ import os.path as op
 import os
 import subprocess
 
-__version__ = "v0.0.1"
+__version__ = "v0.0.3"
 
 
 def run(command, env={}):
