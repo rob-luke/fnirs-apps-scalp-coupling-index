@@ -30,7 +30,7 @@ A more complete example that only runs on participant 3 and also specifies a thr
 ```bash
 docker run -v /path/to/data/:/bids_dataset ghcr.io/rob-luke/fnirs-apps-scalp-coupling-index/app \
   --threshold 0.7 \
-  --participant_label 0.6
+  --participant_label 06
 ```
 
 ## Arguments
