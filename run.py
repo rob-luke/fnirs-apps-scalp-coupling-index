@@ -59,6 +59,8 @@ args = parser.parse_args()
 
 if args.threshold == 1.0:
     print("No threshold was set, so the status column will not be modified")
+else:
+    print(f"Using specified threshold: {args.threshold}")
 
 ids = []
 # only for a subset of subjects
@@ -108,11 +110,8 @@ for id in ids:
                 assert raw.ch_names[idx] == chans["name"][idx]
             chans["SCI"] = sci
             if args.threshold < 1.0:
+                print("Setting status channel")
                 chans["status"] = sci > args.threshold
             chans.to_csv(fname_chan, sep='\t', index=False)
         except FileNotFoundError:
             print(f"Unable to process {b_path.fpath}")
-        else:
-            print(f"Unknown error processing {b_path.fpath}")
-
-
