@@ -78,7 +78,7 @@ tasks = []
 if args.task_label:
     tasks = args.task_label
 else:
-    all_snirfs = glob("/bids_dataset/**/*_nirs.snirf", recursive=True)
+    all_snirfs = glob(f"{args.bids_dir}/**/*_nirs.snirf", recursive=True)
     for a in all_snirfs:
         s = a.split("_task-")[1]
         s = s.split("_nirs.snirf")[0]
@@ -96,7 +96,7 @@ for id in ids:
     for task in tasks:
         print(f"Processing {id}-{task}")
         b_path = BIDSPath(subject=id, task=task,
-                          root="/bids_dataset",
+                          root=f"{args.bids_dir}",
                           datatype="nirs", suffix="nirs",
                           extension=".snirf")
         try:
