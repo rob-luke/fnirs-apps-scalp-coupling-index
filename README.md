@@ -8,6 +8,8 @@ This app evaluates the channel quality of your data using the scalp coupling ind
 The extracted metric is saved as a column in the `channels.tsv` BIDS file.
 If a threshold is specified, then the status column in `channels.tsv` will also be set.
 
+If you prefer a visual report of the data quality see: [fNIRS App: Quality Reports](https://github.com/rob-luke/fnirs-apps-quality-reports)
+
 **Feedback is welcome!!** Please let me know your experience with this app by raising an issue.  
 
 ## Usage
