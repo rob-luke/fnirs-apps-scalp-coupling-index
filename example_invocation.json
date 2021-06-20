@@ -1,0 +1,11 @@
+{
+    "input_datasets": "/home/runner/work/fnirs-apps-scalp-coupling-index/fnirs-apps-scalp-coupling-index/example_data/BIDS-NIRS-Tapping-master",
+    "subject_label": [
+        "01",
+        "02"
+    ],
+    "task_label": [
+        "tapping"
+    ],
+    "threshold": 0.5
+}

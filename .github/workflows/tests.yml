@@ -47,10 +47,10 @@ jobs:
         run: docker run -v /home/runner/example_data/BIDS-NIRS-Tapping-master/:/bids_dataset test --threshold 0.8
         
       - name: Run with participant argument
-        run: docker run -v /home/runner/example_data/BIDS-NIRS-Tapping-master/:/bids_dataset test --participant_label 02
+        run: docker run -v /home/runner/example_data/BIDS-NIRS-Tapping-master/:/bids_dataset test --subject-label 02
         
       - name: Run with multiple argument
-        run: docker run -v /home/runner/example_data/BIDS-NIRS-Tapping-master/:/bids_dataset test --threshold 0.8 --participant_label 03
+        run: docker run -v /home/runner/example_data/BIDS-NIRS-Tapping-master/:/bids_dataset test --threshold 0.8 --subject-label 03
         
         
         
