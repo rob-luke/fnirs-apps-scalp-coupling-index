@@ -39,7 +39,7 @@ jobs:
 
       - name: Run bosh
         run: |
-          bosh exec launch fnirsapp_glm.json example_invocation.json --debug
+          bosh exec launch fnirsapp_sci.json example_invocation.json --debug
 
       - name: Where are we and whats around
         run: |
