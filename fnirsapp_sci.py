@@ -9,7 +9,7 @@ import os.path as op
 import os
 import subprocess
 
-__version__ = "v0.0.3"
+__version__ = "v0.1.0"
 
 
 def run(command, env={}):
@@ -28,20 +28,20 @@ def run(command, env={}):
         raise Exception("Non zero return code: %d" % process.returncode)
 
 parser = argparse.ArgumentParser(description='Scalp coupling index')
-parser.add_argument('--bids_dir', default="/bids_dataset", type=str,
+parser.add_argument('--input-datasets', default="/bids_dataset", type=str,
                     help='The directory with the input dataset '
                     'formatted according to the BIDS standard.')
 parser.add_argument('--threshold', type=float, default=1.0,
                     help='Threshold below which a channel is marked as bad.')
-parser.add_argument('--participant_label',
+parser.add_argument('--subject-label',
                     help='The label(s) of the participant(s) that should be '
                     'analyzed. The label corresponds to '
-                    'sub-<participant_label> from the BIDS spec (so it does '
+                    'sub-<subject-label> from the BIDS spec (so it does '
                     'not include "sub-"). If this parameter is not provided '
                     'all subjects should be analyzed. Multiple participants '
                     'can be specified with a space separated list.',
                     nargs="+")
-parser.add_argument('--task_label',
+parser.add_argument('--task-label',
                     help='The label(s) of the tasks(s) that should be '
                     'analyzed. If this parameter is not provided '
                     'all tasks should be analyzed. Multiple tasks '
@@ -64,11 +64,11 @@ else:
 
 ids = []
 # only for a subset of subjects
-if args.participant_label:
-    ids = args.participant_label
+if args.subject_label:
+    ids = args.subject_label
 # for all subjects
 else:
-    subject_dirs = glob(op.join(args.bids_dir, "sub-*"))
+    subject_dirs = glob(op.join(args.input_datasets, "sub-*"))
     ids = [subject_dir.split("-")[-1] for
            subject_dir in subject_dirs]
     print(f"No participants specified, processing {ids}")
@@ -78,7 +78,7 @@ tasks = []
 if args.task_label:
     tasks = args.task_label
 else:
-    all_snirfs = glob(f"{args.bids_dir}/**/*_nirs.snirf", recursive=True)
+    all_snirfs = glob(f"{args.input_datasets}/**/*_nirs.snirf", recursive=True)
     for a in all_snirfs:
         s = a.split("_task-")[1]
         s = s.split("_nirs.snirf")[0]
@@ -96,7 +96,7 @@ for id in ids:
     for task in tasks:
         print(f"Processing {id}-{task}")
         b_path = BIDSPath(subject=id, task=task,
-                          root=f"{args.bids_dir}",
+                          root=f"{args.input_datasets}",
                           datatype="nirs", suffix="nirs",
                           extension=".snirf")
         try:
