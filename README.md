@@ -30,7 +30,7 @@ A more complete example that only runs on participant 3 and also specifies a thr
 ```bash
 docker run -v /path/to/data/:/bids_dataset ghcr.io/rob-luke/fnirs-apps-scalp-coupling-index/app \
   --threshold 0.7 \
-  --participant_label 06
+  --subject-label 06
 ```
 
 ## Arguments
@@ -38,8 +38,8 @@ docker run -v /path/to/data/:/bids_dataset ghcr.io/rob-luke/fnirs-apps-scalp-cou
 |                   | Required | Default | Note                                                   |
 |-------------------|----------|---------|--------------------------------------------------------|
 | threshold         | optional | []      | If not present then the status column is not modified. |
-| participant_label | optional | []      | Participants to process. Default is to process all.    |
-| task_label        | optional | []      | Tasks to process. Default is to process all.           |
+| subject-label     | optional | []      | Subjects to process. Default is to process all.        |
+| task-label        | optional | []      | Tasks to process. Default is to process all.           |
 
 
 ## Updating
