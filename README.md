@@ -4,7 +4,6 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4999133.svg)](https://doi.org/10.5281/zenodo.4999133)
 
 
-
 This [*fNIRS App*](http://fnirs-apps.org) will calculate the scalp coupling index for each channel in your BIDS dataset.
 
 This app evaluates the channel quality of your data using the scalp coupling index metric.
@@ -17,10 +16,10 @@ If you prefer a visual report of the data quality see: [fNIRS App: Quality Repor
 
 ## Usage
 
-To run the app you must have [docker installed](https://docs.docker.com/get-docker/). See here for details about [installing fNIRS Apps](http://fnirs-apps.org/details/). You do NOT need to have MATLAB or python installed, and you do not need any scripts.
+To run the app you must have [docker installed](https://docs.docker.com/get-docker/). See here for details about [installing fNIRS Apps](http://fnirs-apps.org/overview//). You do NOT need to have MATLAB or python installed, and you do not need any scripts. See this [tutorial for an introduction to fNIRS Apps](http://fnirs-apps.org/tutorial/).
 
-To run the app you must inform it where the `bids_dataset` to be formatted resides.
-This is done by passing the app the location of the dataset using the `-v` command.
+To run the app you must inform it where the `bids_dataset` resides.
+This is done by passing the location of the dataset using the `-v` command to the app.
 To run this app use the command:
 
 ```bash
@@ -28,7 +27,7 @@ docker run -v /path/to/data/:/bids_dataset ghcr.io/rob-luke/fnirs-apps-scalp-cou
 ```
 
 You can also specify additional parameters by passing arguments to the app. A complete list of arguments is provided below.
-A more complete example that only runs on participant 3 and also specifies a threshold, below which channels are marked as bad, can be set as:
+A more complete example that only runs on participant 6 and also specifies a threshold, below which channels are marked as bad, can be set as:
 
 ```bash
 docker run -v /path/to/data/:/bids_dataset ghcr.io/rob-luke/fnirs-apps-scalp-coupling-index/app \
@@ -58,6 +57,13 @@ Or to run a specific version:
 ```bash
 docker run -v /path/:/bids_dataset ghcr.io/rob-luke/fnirs-apps-scalp-coupling-index/app:v1.4.2
 ```
+
+## Additional information
+
+#### Boutiques
+
+This app is [boutiques compatible](https://boutiques.github.io).
+In addition to the methods described above, this app can also be run using [boutiques bosh command](https://boutiques.github.io/doc/index.html).
 
 
 
