@@ -1,7 +1,7 @@
 # fNIRS App: Scalp Coupling Index 
 
 [![build](https://github.com/rob-luke/fnirs-apps-scalp-coupling-index/actions/workflows/ghregistry.yml/badge.svg?branch=main)](https://github.com/rob-luke/fnirs-apps-scalp-coupling-index/actions/workflows/ghregistry.yml)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4999133.svg)](https://doi.org/10.5281/zenodo.4999133)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4999132.svg)](https://doi.org/10.5281/zenodo.4999132)
 
 
 This [*fNIRS App*](http://fnirs-apps.org) will calculate the scalp coupling index for each channel in your BIDS dataset.
