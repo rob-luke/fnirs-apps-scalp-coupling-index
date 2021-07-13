@@ -3,13 +3,14 @@ import pandas as pd
 import numpy as np
 import mne
 import argparse
-from mne_bids import BIDSPath, read_raw_bids
+from mne_bids import BIDSPath, read_raw_bids, get_entity_vals
 from glob import glob
 import os.path as op
 import os
 import subprocess
+from mne.utils import logger
 
-__version__ = "v0.1.0"
+__version__ = "v0.2.0"
 
 
 def run(command, env={}):
@@ -41,6 +42,14 @@ parser.add_argument('--subject-label',
                     'all subjects should be analyzed. Multiple participants '
                     'can be specified with a space separated list.',
                     nargs="+")
+parser.add_argument('--session-label',
+                    help='The label(s) of the session(s) that should be '
+                    'analyzed. The label corresponds to '
+                    'ses-<session-label> from the BIDS spec (so it does '
+                    'not include "ses-"). If this parameter is not provided '
+                    'all sessions should be analyzed. Multiple sessions '
+                    'can be specified with a space separated list.',
+                    nargs="+")
 parser.add_argument('--task-label',
                     help='The label(s) of the tasks(s) that should be '
                     'analyzed. If this parameter is not provided '
@@ -52,6 +61,8 @@ parser.add_argument('-v', '--version', action='version',
                     f'{__version__}')
 args = parser.parse_args()
 
+mne.set_log_level("INFO")
+logger.info("\n")
 
 ########################################
 # Extract parameters
@@ -62,56 +73,69 @@ if args.threshold == 1.0:
 else:
     print(f"Using specified threshold: {args.threshold}")
 
-ids = []
-# only for a subset of subjects
+logger.info("Extracting subject metadata.")
+subs = []
 if args.subject_label:
-    ids = args.subject_label
-# for all subjects
+    logger.info("    Subject data provided as input argument.")
+    subs = args.subject_label
 else:
-    subject_dirs = glob(op.join(args.input_datasets, "sub-*"))
-    ids = [subject_dir.split("-")[-1] for
-           subject_dir in subject_dirs]
-    print(f"No participants specified, processing {ids}")
+    logger.info("    Subject data will be extracted from data.")
+    subs = get_entity_vals(args.input_datasets, 'subject')
+logger.info(f"        Subjects: {subs}")
 
 
+logger.info("Extracting session metadata.")
+sess = []
+if args.session_label:
+    logger.info("    Session data provided as input argument.")
+    sess = args.session_label
+else:
+    logger.info("    Session data will be extracted from data.")
+    sess = get_entity_vals(args.input_datasets, 'session')
+if len(sess) == 0:
+    sess = [None]
+logger.info(f"        Sessions: {sess}")
+
+
+logger.info("Extracting tasks metadata.")
 tasks = []
 if args.task_label:
+    logger.info("    Task data provided as input argument.")
     tasks = args.task_label
 else:
-    all_snirfs = glob(f"{args.input_datasets}/**/*_nirs.snirf", recursive=True)
-    for a in all_snirfs:
-        s = a.split("_task-")[1]
-        s = s.split("_nirs.snirf")[0]
-        tasks.append(s)
-    tasks = np.unique(tasks)
-    print(f"No tasks specified, processing {tasks}")
+    logger.info("    Session data will be extracted from data.")
+    tasks = get_entity_vals(args.input_datasets, 'task')
+logger.info(f"        Tasks: {tasks}")
 
 
 ########################################
 # Main script
 ########################################
 
-print(" ")
-for id in ids:
+logger.info(" ")
+
+for sub in subs:
     for task in tasks:
-        print(f"Processing {id}-{task}")
-        b_path = BIDSPath(subject=id, task=task,
-                          root=f"{args.input_datasets}",
-                          datatype="nirs", suffix="nirs",
-                          extension=".snirf")
-        try:
-            raw = read_raw_bids(b_path, verbose=True)
-            raw = mne.preprocessing.nirs.optical_density(raw)
-            sci = mne.preprocessing.nirs.scalp_coupling_index(raw)
-            fname_chan = b_path.update(suffix='channels',
-                                       extension='.tsv').fpath
-            chans = pd.read_csv(fname_chan, sep='\t')
-            for idx in range(len(raw.ch_names)):
-                assert raw.ch_names[idx] == chans["name"][idx]
-            chans["SCI"] = sci
-            if args.threshold < 1.0:
-                print("Setting status channel")
-                chans["status"] = sci > args.threshold
-            chans.to_csv(fname_chan, sep='\t', index=False)
-        except FileNotFoundError:
-            print(f"Unable to process {b_path.fpath}")
+        for ses in sess:
+
+            logger.info(f"Processing: sub-{sub}/ses-{ses}/task-{task}")
+            b_path = BIDSPath(subject=sub, task=task, session=ses,
+                              root=f"{args.input_datasets}",
+                              datatype="nirs", suffix="nirs",
+                              extension=".snirf")
+            try:
+                raw = read_raw_bids(b_path, verbose=True)
+                raw = mne.preprocessing.nirs.optical_density(raw)
+                sci = mne.preprocessing.nirs.scalp_coupling_index(raw)
+                fname_chan = b_path.update(suffix='channels',
+                                           extension='.tsv').fpath
+                chans = pd.read_csv(fname_chan, sep='\t')
+                for idx in range(len(raw.ch_names)):
+                    assert raw.ch_names[idx] == chans["name"][idx]
+                chans["SCI"] = sci
+                if args.threshold < 1.0:
+                    logger.info("    Setting status channel")
+                    chans["status"] = sci > args.threshold
+                chans.to_csv(fname_chan, sep='\t', index=False)
+            except FileNotFoundError:
+                print(f"Unable to process {b_path.fpath}")
