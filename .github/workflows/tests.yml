@@ -32,11 +32,6 @@ jobs:
       - name: Run docker image
         run: docker-compose up
 
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Formatted_BIDS_Dataset
-          path: /home/runner/example_data/BIDS-NIRS-Tapping-master
-
       - name: Build docker image
         run: docker build --progress=plain -t test .
           
@@ -51,6 +46,11 @@ jobs:
         
       - name: Run with multiple argument
         run: docker run -v /home/runner/example_data/BIDS-NIRS-Tapping-master/:/bids_dataset test --threshold 0.8 --subject-label 03
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Formatted_BIDS_Dataset
+          path: /home/runner/example_data/BIDS-NIRS-Tapping-master
         
         
         
