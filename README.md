@@ -1,5 +1,6 @@
 # fNIRS App: Scalp Coupling Index 
 
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/rob-luke/fnirs-apps-scalp-coupling-index?color=green&label=version&sort=semver)
 [![build](https://github.com/rob-luke/fnirs-apps-scalp-coupling-index/actions/workflows/ghregistry.yml/badge.svg?branch=main)](https://github.com/rob-luke/fnirs-apps-scalp-coupling-index/actions/workflows/ghregistry.yml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4999132.svg)](https://doi.org/10.5281/zenodo.4999132)
 
