@@ -10,7 +10,7 @@ import os
 import subprocess
 from mne.utils import logger
 
-__version__ = "v0.2.0"
+__version__ = "v0.2.1"
 
 
 def run(command, env={}):
