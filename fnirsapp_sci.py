@@ -7,10 +7,15 @@ from mne_bids import BIDSPath, read_raw_bids, get_entity_vals
 from glob import glob
 import os.path as op
 import os
+from pathlib import Path
 import subprocess
 from mne.utils import logger
+from datetime import datetime
+import json
+import hashlib
+from pprint import pprint
 
-__version__ = "v0.2.2"
+__version__ = "v0.3.2"
 
 
 def run(command, env={}):
@@ -60,6 +65,19 @@ parser.add_argument('-v', '--version', action='version',
                     version='BIDS-App Scalp Coupling Index version '
                     f'{__version__}')
 args = parser.parse_args()
+
+def create_report(app_name=None, pargs=None):
+
+    exec_rep = dict()
+    exec_rep["ExecutionStart"] = datetime.now().isoformat()
+    exec_rep["ApplicationName"] = app_name
+    exec_rep["ApplicationVersion"] = __version__
+    exec_rep["Arguments"] = vars(pargs)
+
+    return exec_rep
+
+exec_files = dict()
+exec_rep =create_report(app_name="fNIRS-Apps: Scalp Coupling Index", pargs=args)
 
 mne.set_log_level("INFO")
 logger.info("\n")
@@ -119,11 +137,16 @@ for sub in subs:
         for ses in sess:
 
             logger.info(f"Processing: sub-{sub}/ses-{ses}/task-{task}")
+            exec_files[f"sub-{sub}_ses-{ses}_task-{task}"] = dict()
+
             b_path = BIDSPath(subject=sub, task=task, session=ses,
                               root=f"{args.input_datasets}",
                               datatype="nirs", suffix="nirs",
                               extension=".snirf")
             try:
+                exec_files[f"sub-{sub}_ses-{ses}_task-{task}"]["FileName"] = str(b_path.fpath)
+                exec_files[f"sub-{sub}_ses-{ses}_task-{task}"]["FileHash"] = hashlib.md5(open(b_path.fpath, 'rb').read()).hexdigest()
+
                 raw = read_raw_bids(b_path, verbose=True)
                 raw = mne.preprocessing.nirs.optical_density(raw)
                 sci = mne.preprocessing.nirs.scalp_coupling_index(raw)
@@ -139,3 +162,13 @@ for sub in subs:
                 chans.to_csv(fname_chan, sep='\t', index=False)
             except FileNotFoundError:
                 print(f"Unable to process {b_path.fpath}")
+
+exec_rep["Files"] = exec_files
+exec_path = f"{args.input_datasets}/execution"
+exec_rep["ExecutionEnd"] = datetime.now().isoformat()
+
+Path(exec_path).mkdir(parents=True, exist_ok=True)
+with open(f"{exec_path}/{exec_rep['ExecutionStart'].replace(':', '-')}.json", "w") as fp:
+    json.dump(exec_rep, fp)
+
+pprint(exec_rep)
