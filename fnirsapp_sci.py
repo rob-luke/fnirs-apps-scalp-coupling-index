@@ -15,7 +15,7 @@ import json
 import hashlib
 from pprint import pprint
 
-__version__ = "v0.3.1"
+__version__ = "v0.3.2"
 
 
 def run(command, env={}):
@@ -150,12 +150,14 @@ for sub in subs:
                 raw = read_raw_bids(b_path, verbose=True)
                 raw = mne.preprocessing.nirs.optical_density(raw)
                 sci = mne.preprocessing.nirs.scalp_coupling_index(raw)
+                dist = mne.preprocessing.nirs.source_detector_distances(raw.info)
                 fname_chan = b_path.update(suffix='channels',
                                            extension='.tsv').fpath
                 chans = pd.read_csv(fname_chan, sep='\t')
                 for idx in range(len(raw.ch_names)):
                     assert raw.ch_names[idx] == chans["name"][idx]
                 chans["SCI"] = sci
+                chans["SD_Distance"] = dist
                 if args.threshold < 1.0:
                     logger.info("    Setting status channel")
                     chans["status"] = sci > args.threshold
