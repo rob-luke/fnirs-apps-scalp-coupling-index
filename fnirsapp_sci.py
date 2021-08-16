@@ -4,6 +4,7 @@ import numpy as np
 import mne
 import argparse
 from mne_bids import BIDSPath, read_raw_bids, get_entity_vals
+from mne_nirs.preprocessing import peak_power
 from glob import glob
 import os.path as op
 import os
@@ -15,7 +16,7 @@ import json
 import hashlib
 from pprint import pprint
 
-__version__ = "v0.3.2"
+__version__ = "v0.3.3"
 
 
 def run(command, env={}):
@@ -149,8 +150,12 @@ for sub in subs:
 
                 raw = read_raw_bids(b_path, verbose=True)
                 raw = mne.preprocessing.nirs.optical_density(raw)
+
                 sci = mne.preprocessing.nirs.scalp_coupling_index(raw)
                 dist = mne.preprocessing.nirs.source_detector_distances(raw.info)
+                _, pps, _ = peak_power(raw)
+                pps = np.mean(pps, axis=1)
+
                 fname_chan = b_path.update(suffix='channels',
                                            extension='.tsv').fpath
                 chans = pd.read_csv(fname_chan, sep='\t')
@@ -158,6 +163,7 @@ for sub in subs:
                     assert raw.ch_names[idx] == chans["name"][idx]
                 chans["SCI"] = sci
                 chans["SD_Distance"] = dist
+                chans["PeakPower"] = pps
                 if args.threshold < 1.0:
                     logger.info("    Setting status channel")
                     chans["status"] = sci > args.threshold
