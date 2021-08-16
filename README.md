@@ -10,6 +10,7 @@ This [*fNIRS App*](http://fnirs-apps.org) will calculate the scalp coupling inde
 This app evaluates the channel quality of your data using the scalp coupling index metric.
 The extracted metric is saved as a column in the `channels.tsv` BIDS file.
 If a threshold is specified, then the status column in `channels.tsv` will also be set.
+Additionally the peak power metric is extracted, and the average value across the measurement is stored per channel in the `channels.tsv` BIDS file.
 
 If you prefer a visual report of the data quality see: [fNIRS App: Quality Reports](https://github.com/rob-luke/fnirs-apps-quality-reports)
 
