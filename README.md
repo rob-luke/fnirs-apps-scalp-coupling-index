@@ -15,6 +15,17 @@ If you prefer a visual report of the data quality see: [fNIRS App: Quality Repor
 
 **Feedback is welcome!!** Please let me know your experience with this app by raising an issue.  
 
+
+The metrics computed in this program are from the following manuscripts. Please cite these accordingly:
+
+* Pollonini L et al., “PHOEBE: a method for real time mapping of
+  optodes-scalp coupling in functional near-infrared spectroscopy” in
+  Biomed. Opt. Express 7, 5104-5119 (2016).
+* Hernandez, Samuel Montero, and Luca Pollonini. "NIRSplot: a tool for
+  quality assessment of fNIRS scans." Optics and the Brain.
+  Optical Society of America, 2020.
+
+
 ## Usage
 
 To run the app you must have [docker installed](https://docs.docker.com/get-docker/). See here for details about [installing fNIRS Apps](http://fnirs-apps.org/overview//). You do NOT need to have MATLAB or python installed, and you do not need any scripts. See this [tutorial for an introduction to fNIRS Apps](http://fnirs-apps.org/tutorial/).
