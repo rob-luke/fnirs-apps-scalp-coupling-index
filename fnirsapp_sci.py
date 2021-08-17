@@ -62,6 +62,10 @@ parser.add_argument('--task-label',
                     'all tasks should be analyzed. Multiple tasks '
                     'can be specified with a space separated list.',
                     nargs="+")
+parser.add_argument('--h-freq', type=float, default=1.5,
+                    help='High frequency limit for metrics.')
+parser.add_argument('--h-trans-bandwidth', type=float, default=0.3,
+                    help='High frequency width of the transition band.')
 parser.add_argument('-v', '--version', action='version',
                     version='BIDS-App Scalp Coupling Index version '
                     f'{__version__}')
@@ -151,9 +155,9 @@ for sub in subs:
                 raw = read_raw_bids(b_path, verbose=True)
                 raw = mne.preprocessing.nirs.optical_density(raw)
 
-                sci = mne.preprocessing.nirs.scalp_coupling_index(raw)
+                sci = mne.preprocessing.nirs.scalp_coupling_index(raw, h_freq=args.h_freq, h_trans_bandwidth=args.h_trans_bandwidth)
                 dist = mne.preprocessing.nirs.source_detector_distances(raw.info)
-                _, pps, _ = peak_power(raw)
+                _, pps, _ = peak_power(raw, h_freq=args.h_freq, h_trans_bandwidth=args.h_trans_bandwidth)
                 pps = np.mean(pps, axis=1)
 
                 fname_chan = b_path.update(suffix='channels',
