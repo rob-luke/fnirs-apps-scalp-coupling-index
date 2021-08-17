@@ -55,6 +55,10 @@ docker run -v /path/to/data/:/bids_dataset ghcr.io/rob-luke/fnirs-apps-scalp-cou
 | threshold         | optional | []      | If not present then the status column is not modified. |
 | subject-label     | optional | []      | Subjects to process. Default is to process all.        |
 | task-label        | optional | []      | Tasks to process. Default is to process all.           |
+| h-freq            | optional | 1.5     | High frequency limit for metrics (Hz).                 |
+| h-trans-bandwidth | optional | 0.3     | Width of the high frequency transition band (Hz).      |
+
+For arguments `h-freq` and `h-trans-bandwidth` detailed explanations can be found in the [MNE-NIRS documentation](https://mne.tools/mne-nirs/main/generated/mne.preprocessing.nirs.scalp_coupling_index.html#mne.preprocessing.nirs.scalp_coupling_index).
 
 
 ## Updating

@@ -2,11 +2,11 @@
     "name": "fNIRS Apps: Scalp Coupling Index",
     "description": "Compute Scalp Coupling Index and mark BIDS status",
     "author": "Robert Luke",
-    "tool-version": "v0.3.3",
+    "tool-version": "v0.3.4",
     "schema-version": "0.5",
-    "command-line": "/run.py [InputDataset] [SubjectLabel] [SessionLabel] [TaskLabel] [Threshold]",
+    "command-line": "/run.py [InputDataset] [SubjectLabel] [SessionLabel] [TaskLabel] [Threshold] [HighFrequency] [HighFrequencyBandwidth]",
     "container-image": {
-        "image": "ghcr.io/rob-luke/fnirs-apps-scalp-coupling-index/app:v0.3.3",
+        "image": "ghcr.io/rob-luke/fnirs-apps-scalp-coupling-index/app:v0.3.4",
         "index": "ghcr.io",
         "type": "docker",
         "entrypoint": true
@@ -58,6 +58,22 @@
             "optional": true,
             "type": "Number",
             "value-key": "[Threshold]"
+        },
+        {
+            "command-line-flag": "--h-freq",
+            "id": "h_freq",
+            "name": "h-freq",
+            "optional": true,
+            "type": "Number",
+            "value-key": "[HighFrequency]"
+        },
+        {
+            "command-line-flag": "--h-trans-bandwidth",
+            "id": "h_trans_bandwidth",
+            "name": "h-trans-bandwidth",
+            "optional": true,
+            "type": "Number",
+            "value-key": "[HighFrequencyBandwidth]"
         }
     ],
     "output-files": [
