@@ -16,7 +16,7 @@ import json
 import hashlib
 from pprint import pprint
 
-__version__ = "v0.3.4"
+__version__ = "v0.3.5"
 
 
 def run(command, env={}):

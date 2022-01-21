@@ -2,11 +2,11 @@
     "name": "fNIRS Apps: Scalp Coupling Index",
     "description": "Compute Scalp Coupling Index and mark BIDS status",
     "author": "Robert Luke",
-    "tool-version": "v0.3.4",
+    "tool-version": "v0.3.5",
     "schema-version": "0.5",
     "command-line": "/run.py [InputDataset] [SubjectLabel] [SessionLabel] [TaskLabel] [Threshold] [HighFrequency] [HighFrequencyBandwidth]",
     "container-image": {
-        "image": "ghcr.io/rob-luke/fnirs-apps-scalp-coupling-index/app:v0.3.4",
+        "image": "ghcr.io/rob-luke/fnirs-apps-scalp-coupling-index/app:v0.3.5",
         "index": "ghcr.io",
         "type": "docker",
         "entrypoint": true
